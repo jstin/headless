@@ -116,7 +116,7 @@ class Headless
   def take_screenshot(file_path)
     utility = (@image_capture_options[:utility] == :imagemagick) ? 'import' : 'gm'
     
-    CliUtil.ensure_application_exists!("#{utlity}", "@{utility} not found on your system. Please install it using sudo apt-get install #{@image_capture_options[:utility]}")
+    CliUtil.ensure_application_exists!("#{utility}", "@{utility} not found on your system. Please install it using sudo apt-get install #{@image_capture_options[:utility]}")
 
     system "#{CliUtil.path_to(utility)} #{(utility == 'gm') ? 'import ' : ''}-display localhost:#{display} -window root #{file_path}"
   end
