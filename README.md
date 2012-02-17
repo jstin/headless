@@ -80,7 +80,9 @@ Video is captured using `ffmpeg`. You can install it on Debian/Ubuntu via `sudo 
 
 ## Taking screenshots
 
-Images are captured using `import` utility which is part of `imagemagick` library. You can install it on Ubuntu via `sudo apt-get install imagemagick`. You can call `headless.take_screenshot` at any time. You have to supply full path to target file. File format is determined by supplied file extension.
+Images are captured using either the `gm` utility which is part of `graphicsmagick` or `import` utility which is part of `imagemagick` library. You can install it on Ubuntu via `sudo apt-get install graphicsmagick` or `sudo apt-get install imagemagick` respectively. You can call `headless.take_screenshot` at any time. You have to supply full path to target file. File format is determined by supplied file extension.
+
+It defaults to `graphicsmagick` but you can pass the options `{:image => {:utility => :graphicsmagick}}` to pick that utility.
 
 ## Contributors
 
