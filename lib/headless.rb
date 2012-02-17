@@ -64,6 +64,7 @@ class Headless
     @reuse_display = options.fetch(:reuse, true)
     @dimensions = options.fetch(:dimensions, '1280x1024x24')
     @video_capture_options = options.fetch(:video, {})
+    @image_capture_options = options.fetch(:image, {:utility => :graphicsmagick})
     @destroy_at_exit = options.fetch(:destroy_at_exit, true)
 
     #TODO more logic here, autopicking the display number
@@ -113,9 +114,11 @@ class Headless
   end
 
   def take_screenshot(file_path)
-    CliUtil.ensure_application_exists!('import', "imagemagick not found on your system. Please install it using sudo apt-get install imagemagick")
+    utility = (@image_capture_options[:utility] == :imagemagick) ? 'import' : 'gm'
+    
+    CliUtil.ensure_application_exists!("#{utlity}", "@{utility} not found on your system. Please install it using sudo apt-get install #{@image_capture_options[:utility]}")
 
-    system "#{CliUtil.path_to('import')} -display localhost:#{display} -window root #{file_path}"
+    system "#{CliUtil.path_to(utility)} #{(utility == 'gm') ? 'import ' : ''}-display localhost:#{display} -window root #{file_path}"
   end
 
 private
